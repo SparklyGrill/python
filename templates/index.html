@@ -11,6 +11,8 @@
             background-image: url("https://wallpaperaccess.com/full/445409.jpg");
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
         .weather-box {
@@ -23,11 +25,6 @@
 
         .weather-box p {
             font-size: 24px;
-        }
-
-        .weather-box img {
-            width: 120px;
-            height: 120px;
         }
     </style>
 </head>
@@ -45,7 +42,10 @@
                             <button class="btn btn-primary">Search</button>
                         </div>
                     </form>
-
+                    {% if city %}
+                        <h2 class="text-center">Weather for {{ city }}</h2>
+                    {% endif %}
+                    
                     {% if error %}
                     <div class="mt-4 text-center">
                         <p class="text-danger">{{ error }}</p>
@@ -54,7 +54,6 @@
 
                     {% if data %}
                     <div class="mt-4 text-center">
-                        <p>{{ city }}</p>
                         <p>{{ data.main }}: {{ data.description }}</p>
                         <img src="https://openweathermap.org/img/wn/{{ data.icon }}@2x.png" alt="Weather Icon">
                         <p>{{ data.temperature }} °C</p>

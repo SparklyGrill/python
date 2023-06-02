@@ -24,10 +24,10 @@ def get_lan_lon(city_name, api_key):
 def get_current_weather(lat, lon, api_key):
     resp = requests.get(f'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&units=metric').json()
     data = WeatherData(
-        main=resp.get('weather')[0].get('main'),
-        description=resp.get('weather')[0].get('description'),
-        icon=resp.get('weather')[0].get('icon'),
-        temperature=int(resp.get('main').get('temp'))
+        main = resp.get('weather')[0].get('main'),
+        description = resp.get('weather')[0].get('description'),
+        icon = resp.get('weather')[0].get('icon'),
+        temperature = int(resp.get('main').get('temp'))
     )
     return data
 
@@ -42,10 +42,18 @@ port = 3001
 @app.route('/', methods=['GET', 'POST'])
 def index():
     data = None
+    city = None
+    error = None
+
     if request.method == 'POST':
         city_name = request.form['cityName']
-        data = display_weather(city_name)
-    return render_template('index.html', data=data)
+        if not city_name:
+            error = 'Please enter the city name'
+        else:
+            data = display_weather(city_name)
+            city = city_name
+
+    return render_template('index.html', data=data, city=city, error=error)
 
 if __name__ == '__main__':
     app.run(debug=True, port=port)

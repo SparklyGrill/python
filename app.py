@@ -6,14 +6,14 @@ port = 3001
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    data = None
-    city = None
-    error = None
+    data=None
+    city=None
+    error=None
 
     if request.method == 'POST':
-        city = request.form['cityName']
+        city=request.form['cityName']
         if not city:
-            error = 'Please enter the city name'
+            error='Please enter the city name'
         else:
             data = get_weather(city)
 
