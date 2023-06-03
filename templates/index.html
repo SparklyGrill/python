@@ -26,6 +26,22 @@
         .weather-box p {
             font-size: 24px;
         }
+
+        .weather-box img {
+            width: 120px;
+            height: 120px;
+        }
+
+        .shake {
+            animation: shake 0.5s linear;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+            100% { transform: translateX(0); }
+        }
     </style>
 </head>
 <body>
@@ -36,10 +52,10 @@
                     <h1 class="text-center">Weather App</h1>
                     <form action="/" method="post">
                         <div class="mb-3">
-                            <input type="text" id="cityName" name="cityName" placeholder="City" class="form-control">
+                            <input type="text" id="cityName" name="cityName" placeholder="City" class="form-control{% if error %} shake{% endif %}">
                         </div>
                         <div class="text-center">
-                            <button class="btn btn-primary">Search</button>
+                            <button class="btn btn-primary{% if error %} shake{% endif %}">Search</button>
                         </div>
                     </form>
                     {% if city %}
